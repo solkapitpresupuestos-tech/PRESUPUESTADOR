@@ -304,6 +304,43 @@
         .ventana-diagram { text-align: center; }
         .ventana-diagram svg { max-width: 160px; height: auto; }
 
+        /* EJEMPLOS CARD */
+        .ejemplos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        .ejemplo-btn {
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 0.85rem 1rem;
+            cursor: pointer;
+            background: white;
+            text-align: left;
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+        .ejemplo-btn:hover {
+            border-color: var(--blue);
+            background: var(--blue-pale);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(31,78,121,0.15);
+        }
+        .ejemplo-btn .ej-icon { font-size: 2rem; margin-bottom: 0.4rem; display: block; }
+        .ejemplo-btn .ej-title { font-size: 0.85rem; font-weight: 700; color: #1e293b; display: block; margin-bottom: 0.25rem; }
+        .ejemplo-btn .ej-desc { font-size: 0.72rem; color: var(--gray); display: block; line-height: 1.4; }
+        .ejemplo-btn .ej-modulos { margin-top: 0.4rem; display: flex; flex-wrap: wrap; gap: 3px; }
+        .ej-tag {
+            font-size: 0.65rem; font-weight: 700; padding: 2px 6px; border-radius: 10px;
+            background: var(--blue-pale); color: var(--blue);
+        }
+        .ej-tag.fijo { background: #f1f5f9; color: #475569; }
+        .ej-tag.practicable { background: #dcfce7; color: #15803d; }
+        .ej-tag.oscilobatiente { background: #fce7f3; color: #be185d; }
+        .ej-tag.elevable { background: #ede9fe; color: #7c3aed; }
+        .ej-tag.panel { background: #fff7ed; color: #c2410c; }
+
         @media print {
             .no-print { display: none !important; }
             body { background: white; }
@@ -378,6 +415,92 @@
             <div class="alert alert-info no-print" style="margin-bottom:1rem;">
                 <i class="fas fa-info-circle" style="margin-top:2px;"></i>
                 <div>Selecciona el <strong>tipo de ventana</strong> para ver automáticamente el desglose completo de perfiles (marco, hoja, junquillo) con sus precios €/ml según tarifa <strong>Aluminios Barcelona</strong>.</div>
+            </div>
+
+            <!-- EJEMPLOS PREDEFINIDOS -->
+            <div class="no-print" style="margin-bottom:1.25rem;">
+                <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.6rem;">
+                    <i class="fas fa-bolt" style="color:var(--orange);"></i>
+                    <span style="font-size:0.82rem;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:0.5px;">Ejemplos rápidos — Más vendidos (criterio módulos Aluminios Barcelona)</span>
+                </div>
+                <div class="ejemplos-grid">
+
+                    <button class="ejemplo-btn" onclick="cargarEjemplo('ob_2h')">
+                        <span class="ej-icon">🪟</span>
+                        <span class="ej-title">Ventana 2 hojas OB</span>
+                        <span class="ej-desc">2 hojas oscilobatiente. Módulo único con 2 hojas.</span>
+                        <div class="ej-modulos">
+                            <span class="ej-tag oscilobatiente">OB ×2h</span>
+                        </div>
+                    </button>
+
+                    <button class="ejemplo-btn" onclick="cargarEjemplo('ob_fijo')">
+                        <span class="ej-icon">🪟➕⬜</span>
+                        <span class="ej-title">Ventana 1h OB + fijo lateral</span>
+                        <span class="ej-desc">1 hoja OB + 1 fijo lateral. 2 módulos independientes.</span>
+                        <div class="ej-modulos">
+                            <span class="ej-tag oscilobatiente">OB ×1h</span>
+                            <span class="ej-tag fijo">Fijo</span>
+                        </div>
+                    </button>
+
+                    <button class="ejemplo-btn" onclick="cargarEjemplo('puerta_fijo')">
+                        <span class="ej-icon">🚪➕⬜</span>
+                        <span class="ej-title">Puerta 1h + fijo lateral</span>
+                        <span class="ej-desc">Puerta practicable 1h + fijo lateral. 2 módulos.</span>
+                        <div class="ej-modulos">
+                            <span class="ej-tag practicable">Pract. ×1h</span>
+                            <span class="ej-tag fijo">Fijo</span>
+                        </div>
+                    </button>
+
+                    <button class="ejemplo-btn" onclick="cargarEjemplo('puerta_2h_2fijos')">
+                        <span class="ej-icon">🚪🚪⬜⬜</span>
+                        <span class="ej-title">Puerta 2h + 2 fijos laterales</span>
+                        <span class="ej-desc">2 hojas practicable + fijo izq + fijo der. 3 módulos.</span>
+                        <div class="ej-modulos">
+                            <span class="ej-tag fijo">Fijo</span>
+                            <span class="ej-tag practicable">Pract. ×2h</span>
+                            <span class="ej-tag fijo">Fijo</span>
+                        </div>
+                    </button>
+
+                    <button class="ejemplo-btn" onclick="cargarEjemplo('ventanal_fijo_pract_fijo')">
+                        <span class="ej-icon">⬜🪟⬜</span>
+                        <span class="ej-title">Ventanal fijo + pract. + fijo</span>
+                        <span class="ej-desc">Composición clásica de 3 módulos: fijo–practicable–fijo.</span>
+                        <div class="ej-modulos">
+                            <span class="ej-tag fijo">Fijo</span>
+                            <span class="ej-tag practicable">Pract. ×1h</span>
+                            <span class="ej-tag fijo">Fijo</span>
+                        </div>
+                    </button>
+
+                    <button class="ejemplo-btn" onclick="cargarEjemplo('puerta_bandera')">
+                        <span class="ej-icon">🚪⬆️</span>
+                        <span class="ej-title">Puerta con bandera superior</span>
+                        <span class="ej-desc">Puerta practicable 1h + fijo superior (bandera). 2 módulos.</span>
+                        <div class="ej-modulos">
+                            <span class="ej-tag practicable">Pract. ×1h</span>
+                            <span class="ej-tag fijo">Fijo bandera</span>
+                        </div>
+                    </button>
+
+                    <button class="ejemplo-btn" onclick="cargarEjemplo('ventana_antepecho')">
+                        <span class="ej-icon">🟧🪟</span>
+                        <span class="ej-title">Ventana con antepecho</span>
+                        <span class="ej-desc">Panel opaco inferior + ventana practicable superior. 2 módulos.</span>
+                        <div class="ej-modulos">
+                            <span class="ej-tag panel">Panel fijo</span>
+                            <span class="ej-tag practicable">Pract. ×1h</span>
+                        </div>
+                    </button>
+
+                </div>
+                <div style="font-size:0.75rem;color:var(--gray);background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:0.5rem 0.85rem;">
+                    <i class="fas fa-lightbulb" style="color:#ca8a04;"></i>
+                    <strong>Criterio Aluminios Barcelona:</strong> Cada composición se calcula por <strong>módulos independientes</strong> — cada fijo y cada hoja tiene su propia perfilería completa de marco. Puedes ajustar dimensiones, serie y vidrio de cada módulo.
+                </div>
             </div>
 
             <div id="posicionesContainer">
@@ -655,7 +778,76 @@ const TARIFA = {
         rpt: true
     },
 
-    // ── OSCILOBATIENTE ────────────────────────────────────────
+    // ── OSCILOBATIENTE ALBA 65 (sin RPT y RPT, 1h y 2h) ──────
+    'ALBA_65_OB_1H': {
+        nombre: 'ALBA 65 OB · 1 hoja',
+        tipo: 'oscilobatiente',
+        descripcion: 'Oscilobatiente ALBA 65mm sin RPT · 1 hoja',
+        barraLongitud: 6500,
+        perfiles: {
+            marco_horizontal:  { nombre: 'Marco H. ALBA 65',        codigo: 'AB-OB65-MH',  precio_ml: 15.00 },
+            marco_vertical:    { nombre: 'Marco V. ALBA 65',        codigo: 'AB-OB65-MV',  precio_ml: 15.00 },
+            hoja_horizontal:   { nombre: 'Hoja H. ALBA 65',         codigo: 'AB-OB65-HH',  precio_ml: 17.30 },
+            hoja_vertical:     { nombre: 'Hoja V. ALBA 65',         codigo: 'AB-OB65-HV',  precio_ml: 17.30 },
+            junquillo:         { nombre: 'Junquillo ALBA 65',       codigo: 'AB-OB65-JQ',  precio_ml: 6.90  },
+            tapajuntas:        { nombre: 'Tapajuntas ALBA 65',      codigo: 'AB-OB65-TJ',  precio_ml: 5.10  },
+        },
+        hojas: 1,
+        rpt: false
+    },
+
+    'ALBA_65_OB_2H': {
+        nombre: 'ALBA 65 OB · 2 hojas',
+        tipo: 'oscilobatiente',
+        descripcion: 'Oscilobatiente ALBA 65mm sin RPT · 2 hojas',
+        barraLongitud: 6500,
+        perfiles: {
+            marco_horizontal:  { nombre: 'Marco H. ALBA 65',        codigo: 'AB-OB65-MH',  precio_ml: 15.00 },
+            marco_vertical:    { nombre: 'Marco V. ALBA 65',        codigo: 'AB-OB65-MV',  precio_ml: 15.00 },
+            hoja_horizontal:   { nombre: 'Hoja H. ALBA 65',         codigo: 'AB-OB65-HH',  precio_ml: 17.30 },
+            hoja_vertical:     { nombre: 'Hoja V. ALBA 65',         codigo: 'AB-OB65-HV',  precio_ml: 17.30 },
+            junquillo:         { nombre: 'Junquillo ALBA 65',       codigo: 'AB-OB65-JQ',  precio_ml: 6.90  },
+            tapajuntas:        { nombre: 'Tapajuntas / Separ. 65',  codigo: 'AB-OB65-TJ',  precio_ml: 5.10  },
+        },
+        hojas: 2,
+        rpt: false
+    },
+
+    'ALBA_65_OB_RPT_1H': {
+        nombre: 'ALBA 65 OB RPT · 1 hoja',
+        tipo: 'oscilobatiente',
+        descripcion: 'Oscilobatiente ALBA 65mm RPT · 1 hoja',
+        barraLongitud: 6500,
+        perfiles: {
+            marco_horizontal:  { nombre: 'Marco H. ALBA 65 RPT',    codigo: 'AB-OB65R-MH', precio_ml: 17.50 },
+            marco_vertical:    { nombre: 'Marco V. ALBA 65 RPT',    codigo: 'AB-OB65R-MV', precio_ml: 17.50 },
+            hoja_horizontal:   { nombre: 'Hoja H. ALBA 65 RPT',     codigo: 'AB-OB65R-HH', precio_ml: 20.10 },
+            hoja_vertical:     { nombre: 'Hoja V. ALBA 65 RPT',     codigo: 'AB-OB65R-HV', precio_ml: 20.10 },
+            junquillo:         { nombre: 'Junquillo ALBA 65 RPT',   codigo: 'AB-OB65R-JQ', precio_ml: 7.80  },
+            tapajuntas:        { nombre: 'Tapajuntas ALBA 65 RPT',  codigo: 'AB-OB65R-TJ', precio_ml: 5.80  },
+        },
+        hojas: 1,
+        rpt: true
+    },
+
+    'ALBA_65_OB_RPT_2H': {
+        nombre: 'ALBA 65 OB RPT · 2 hojas',
+        tipo: 'oscilobatiente',
+        descripcion: 'Oscilobatiente ALBA 65mm RPT · 2 hojas',
+        barraLongitud: 6500,
+        perfiles: {
+            marco_horizontal:  { nombre: 'Marco H. ALBA 65 RPT',    codigo: 'AB-OB65R-MH', precio_ml: 17.50 },
+            marco_vertical:    { nombre: 'Marco V. ALBA 65 RPT',    codigo: 'AB-OB65R-MV', precio_ml: 17.50 },
+            hoja_horizontal:   { nombre: 'Hoja H. ALBA 65 RPT',     codigo: 'AB-OB65R-HH', precio_ml: 20.10 },
+            hoja_vertical:     { nombre: 'Hoja V. ALBA 65 RPT',     codigo: 'AB-OB65R-HV', precio_ml: 20.10 },
+            junquillo:         { nombre: 'Junquillo ALBA 65 RPT',   codigo: 'AB-OB65R-JQ', precio_ml: 7.80  },
+            tapajuntas:        { nombre: 'Tapajuntas / Separ. RPT', codigo: 'AB-OB65R-TJ', precio_ml: 5.80  },
+        },
+        hojas: 2,
+        rpt: true
+    },
+
+    // ── OSCILOBATIENTE ALFIL 45 RPT (original) ───────────────
     'ALFIL_OB_RPT': {
         nombre: 'ALFIL OB RPT',
         tipo: 'oscilobatiente',
@@ -760,6 +952,16 @@ const HERRAJES = {
             { nombre: 'Junta perimetral EPDM',                  precio: 12.00 },
         ]
     },
+    'oscilobatiente_2h': {
+        items: [
+            { nombre: 'Kit herraje OB 1ª hoja',                 precio: 85.00 },
+            { nombre: 'Kit herraje OB 2ª hoja',                 precio: 85.00 },
+            { nombre: 'Manillas (×2) + ferretería',             precio: 44.00 },
+            { nombre: 'Tijeras y soportes OB (×2 hojas)',       precio: 70.00 },
+            { nombre: 'Falleba / separador central',            precio: 28.00 },
+            { nombre: 'Junta perimetral EPDM',                  precio: 18.00 },
+        ]
+    },
     'elevable': {
         items: [
             { nombre: 'Kit herraje elevable (sistema)',         precio: 180.00 },
@@ -777,74 +979,10 @@ const HERRAJES = {
 };
 
 /* ============================================================
-   FABRICACIÓN (€/ml por componente — igual que el Material)
-   Coste de taller por metro lineal de perfil trabajado
+   FABRICACIÓN: Los €/ml de fabricación son EXACTAMENTE iguales
+   a los €/ml del material de cada serie. Se calcula sobre los
+   mismos metrajes que el material (calcularCostesFabricacion).
    ============================================================ */
-const FABRICACION = {
-    'corredera': {
-        nombre: 'Corredera',
-        perfiles: {
-            marco_horizontal:  { nombre: 'Fabricación Marco Horizontal',  precio_ml: 2.80 },
-            marco_vertical:    { nombre: 'Fabricación Marco Vertical',     precio_ml: 2.80 },
-            hoja_horizontal:   { nombre: 'Fabricación Hoja Horizontal',    precio_ml: 3.20 },
-            hoja_vertical:     { nombre: 'Fabricación Hoja Vertical',      precio_ml: 3.20 },
-            junquillo:         { nombre: 'Fabricación Junquillo',          precio_ml: 1.10 },
-            refuerzo_central:  { nombre: 'Fabricación Refuerzo / Jamba',   precio_ml: 1.80 },
-        }
-    },
-    'practicable_1h': {
-        nombre: 'Practicable 1 hoja',
-        perfiles: {
-            marco_horizontal:  { nombre: 'Fabricación Marco Horizontal',  precio_ml: 2.60 },
-            marco_vertical:    { nombre: 'Fabricación Marco Vertical',     precio_ml: 2.60 },
-            hoja_horizontal:   { nombre: 'Fabricación Hoja Horizontal',    precio_ml: 3.00 },
-            hoja_vertical:     { nombre: 'Fabricación Hoja Vertical',      precio_ml: 3.00 },
-            junquillo:         { nombre: 'Fabricación Junquillo',          precio_ml: 1.00 },
-            tapajuntas:        { nombre: 'Fabricación Tapajuntas',         precio_ml: 0.80 },
-        }
-    },
-    'practicable_2h': {
-        nombre: 'Practicable 2 hojas',
-        perfiles: {
-            marco_horizontal:  { nombre: 'Fabricación Marco Horizontal',  precio_ml: 2.60 },
-            marco_vertical:    { nombre: 'Fabricación Marco Vertical',     precio_ml: 2.60 },
-            hoja_horizontal:   { nombre: 'Fabricación Hoja Horizontal',    precio_ml: 3.00 },
-            hoja_vertical:     { nombre: 'Fabricación Hoja Vertical',      precio_ml: 3.00 },
-            junquillo:         { nombre: 'Fabricación Junquillo',          precio_ml: 1.00 },
-            tapajuntas:        { nombre: 'Fabricación Tapajuntas',         precio_ml: 0.80 },
-        }
-    },
-    'oscilobatiente': {
-        nombre: 'Oscilobatiente',
-        perfiles: {
-            marco_horizontal:  { nombre: 'Fabricación Marco Horizontal',  precio_ml: 3.00 },
-            marco_vertical:    { nombre: 'Fabricación Marco Vertical',     precio_ml: 3.00 },
-            hoja_horizontal:   { nombre: 'Fabricación Hoja Horizontal',    precio_ml: 3.60 },
-            hoja_vertical:     { nombre: 'Fabricación Hoja Vertical',      precio_ml: 3.60 },
-            junquillo:         { nombre: 'Fabricación Junquillo',          precio_ml: 1.20 },
-            tapajuntas:        { nombre: 'Fabricación Tapajuntas',         precio_ml: 1.00 },
-        }
-    },
-    'elevable': {
-        nombre: 'Elevable',
-        perfiles: {
-            marco_horizontal:  { nombre: 'Fabricación Marco Horizontal',  precio_ml: 4.50 },
-            marco_vertical:    { nombre: 'Fabricación Marco Vertical',     precio_ml: 4.50 },
-            hoja_horizontal:   { nombre: 'Fabricación Hoja Horizontal',    precio_ml: 5.00 },
-            hoja_vertical:     { nombre: 'Fabricación Hoja Vertical',      precio_ml: 5.00 },
-            junquillo:         { nombre: 'Fabricación Junquillo',          precio_ml: 1.80 },
-            guia_suelo:        { nombre: 'Fabricación Guía Suelo',         precio_ml: 3.00 },
-        }
-    },
-    'fijo': {
-        nombre: 'Fijo',
-        perfiles: {
-            marco_horizontal:  { nombre: 'Fabricación Marco Horizontal',  precio_ml: 1.80 },
-            marco_vertical:    { nombre: 'Fabricación Marco Vertical',     precio_ml: 1.80 },
-            junquillo:         { nombre: 'Fabricación Junquillo',          precio_ml: 0.70 },
-        }
-    },
-};
 
 /* ============================================================
    MONTAJE (€/m² de ventana)
@@ -1057,13 +1195,25 @@ function calcularMetrajesComponentes(serie, ancho, alto) {
     else if (serie.tipo === 'oscilobatiente') {
         ml.marco_horizontal = anchoM * 2;
         ml.marco_vertical   = altoM  * 2;
-        const anchoHoja = anchoM - 0.040;
-        const altoHoja  = altoM  - 0.040;
-        ml.hoja_horizontal  = anchoHoja * 2;
-        ml.hoja_vertical    = altoHoja  * 2;
-        const perimHoja     = 2 * (anchoHoja + altoHoja);
-        ml.junquillo        = perimHoja;
-        ml.tapajuntas       = perimHoja;
+        if (nHojas === 1) {
+            // 1 hoja: ocupa todo el hueco interior del marco
+            const anchoHoja = anchoM - 0.040;
+            const altoHoja  = altoM  - 0.040;
+            ml.hoja_horizontal  = anchoHoja * 2;
+            ml.hoja_vertical    = altoHoja  * 2;
+            const perimHoja     = 2 * (anchoHoja + altoHoja);
+            ml.junquillo        = perimHoja;
+            ml.tapajuntas       = altoM * 2 + anchoM; // 2 laterales + superior
+        } else {
+            // 2 hojas: cada hoja ocupa la mitad del ancho interior
+            const anchoHoja = (anchoM / 2) - 0.030;
+            const altoHoja  = altoM - 0.040;
+            ml.hoja_horizontal  = anchoHoja * 2 * 2; // sup+inf × 2 hojas
+            ml.hoja_vertical    = altoHoja  * 2 * 2; // lat×2 × 2 hojas
+            const perimHoja     = 2 * (anchoHoja + altoHoja);
+            ml.junquillo        = perimHoja * 2;      // perímetro × 2 hojas
+            ml.tapajuntas       = (altoM * 2 + anchoM) * 2; // contorno × 2 hojas
+        }
     }
     else if (serie.tipo === 'elevable') {
         ml.marco_horizontal = anchoM * 2;
@@ -1107,25 +1257,19 @@ function calcularCostesPerfiles(serie, ml) {
     return { costes, totalMarco, totalHoja, totalJunquillo, totalOtros };
 }
 
-function calcularCostesFabricacion(serie, ml, fabricacionKey) {
-    const fabSerie = FABRICACION[fabricacionKey];
+/* Fabricación usa los mismos €/ml que el material (serie.perfiles[key].precio_ml) */
+function calcularCostesFabricacion(serie, ml) {
     const costes = {};
-    let totalFabMarco = 0, totalFabHoja = 0, totalFabJunquillo = 0, totalFabOtros = 0;
     let totalFabricacion = 0;
 
-    for (const [key, fabPerfil] of Object.entries(fabSerie.perfiles)) {
+    for (const [key, perfil] of Object.entries(serie.perfiles)) {
         const mlVal = ml[key] || 0;
-        const coste = mlVal * fabPerfil.precio_ml;
-        costes[key] = { ml: mlVal, precio_ml: fabPerfil.precio_ml, coste, nombre: fabPerfil.nombre };
+        const coste = mlVal * perfil.precio_ml; // mismo precio_ml que el material
+        costes[key] = { ml: mlVal, precio_ml: perfil.precio_ml, coste, nombre: 'Fab. ' + perfil.nombre };
         totalFabricacion += coste;
-
-        if (key.startsWith('marco')) totalFabMarco += coste;
-        else if (key.startsWith('hoja')) totalFabHoja += coste;
-        else if (key === 'junquillo') totalFabJunquillo += coste;
-        else totalFabOtros += coste;
     }
 
-    return { costes, totalFabricacion, totalFabMarco, totalFabHoja, totalFabJunquillo, totalFabOtros };
+    return { costes, totalFabricacion };
 }
 
 /* ============================================================
@@ -1141,8 +1285,7 @@ function buildDesgloseInlineHTML(serie, ml, ancho, alto, cant, vidrioKey) {
     const herrajes   = HERRAJES[herrajeKey];
     const costeHerrajes = herrajes.items.reduce((s, h) => s + h.precio, 0);
 
-    const fabricacionKey = getFabricacionKey(serie);
-    const { costes: costesFab, totalFabricacion: costeFabricacion } = calcularCostesFabricacion(serie, ml, fabricacionKey);
+    const { costes: costesFab, totalFabricacion: costeFabricacion } = calcularCostesFabricacion(serie, ml);
 
     const vidrio = VIDRIOS[vidrioKey];
     const m2Vid  = calcM2Vidrio(serie, ancho, alto);
@@ -1265,7 +1408,7 @@ function buildDesgloseInlineHTML(serie, ml, ancho, alto, cant, vidrioKey) {
 function getHerrajeKey(serie) {
     if (serie.tipo === 'fijo') return 'fijo';
     if (serie.tipo === 'elevable') return 'elevable';
-    if (serie.tipo === 'oscilobatiente') return 'oscilobatiente_1h';
+    if (serie.tipo === 'oscilobatiente') return serie.hojas === 2 ? 'oscilobatiente_2h' : 'oscilobatiente_1h';
     if (serie.tipo === 'corredera') return 'corredera_2h';
     if (serie.tipo === 'practicable') return serie.hojas === 1 ? 'practicable_1h' : 'practicable_2h';
     return 'fijo';
@@ -1340,8 +1483,7 @@ function calcularVentana(pos) {
     const herrajeKey    = getHerrajeKey(serie);
     const costeHerrajes = HERRAJES[herrajeKey].items.reduce((s, h) => s + h.precio, 0);
 
-    const fabricacionKey    = getFabricacionKey(serie);
-    const { totalFabricacion: costeFabricacion } = calcularCostesFabricacion(serie, ml, fabricacionKey);
+    const { totalFabricacion: costeFabricacion } = calcularCostesFabricacion(serie, ml);
 
     const m2Vidrio      = calcM2Vidrio(serie, pos.ancho, pos.alto);
     const costeVidrio   = m2Vidrio * vidrio.precio;
@@ -1606,7 +1748,7 @@ function renderDesglose(resultados) {
                         </div>
                         <div class="comp-card fabricacion">
                             <h4><i class="fas fa-industry"></i> Fabricación</h4>
-                            ${(()=>{ const fk=getFabricacionKey(serie); const {costes:cf}=calcularCostesFabricacion(serie,r.ml,fk); return Object.entries(cf).map(([key,f])=>`<div class="comp-perfil-item"><span>${f.nombre}</span><span>${f.ml.toFixed(2)}ml × ${f.precio_ml.toFixed(2)}€ = <b>${f.coste.toFixed(2)}€</b></span></div>`).join(''); })()}
+                            ${(()=>{ const {costes:cf}=calcularCostesFabricacion(serie,r.ml); return Object.entries(cf).map(([key,f])=>`<div class="comp-perfil-item"><span>${f.nombre}</span><span>${f.ml.toFixed(2)}ml × ${f.precio_ml.toFixed(2)}€ = <b>${f.coste.toFixed(2)}€</b></span></div>`).join(''); })()}
                             <div class="comp-total">Total fabricación: <b>${t.fabricacion.toFixed(2)}€</b></div>
                         </div>
                         <div class="comp-card vidrio">
@@ -1831,6 +1973,142 @@ function guardarPresupuesto() {
 
 function nuevoPresupuesto() {
     if (confirm('¿Crear nuevo presupuesto? Se perderán los datos no guardados.')) location.reload();
+}
+
+/* ============================================================
+   EJEMPLOS RÁPIDOS — COMPOSICIONES MÁS VENDIDAS
+   Cada módulo = posición independiente con su propio marco
+   ============================================================ */
+
+const EJEMPLOS = {
+
+    // 1. Ventana 2 hojas oscilobatiente
+    'ob_2h': {
+        titulo: 'Ventana 2 hojas Oscilobatiente',
+        descripcion: 'Módulo único con 2 hojas oscilobatientes',
+        modulos: [
+            { desc: 'Ventana OB 2h — hoja izquierda',  serie: 'ALFIL_OB_RPT', ancho: 600,  alto: 1200, cant: 1, vidrio: 'CAM_4_16_4_BE', montaje: 'hueco_limpio' },
+            { desc: 'Ventana OB 2h — hoja derecha',    serie: 'ALFIL_OB_RPT', ancho: 600,  alto: 1200, cant: 1, vidrio: 'CAM_4_16_4_BE', montaje: 'sin_montaje' },
+        ]
+    },
+
+    // 2. Ventana 1 hoja OB + fijo lateral
+    'ob_fijo': {
+        titulo: 'Ventana 1h OB + Fijo lateral',
+        descripcion: '2 módulos independientes — cada uno con su marco completo',
+        modulos: [
+            { desc: 'OB — hoja practicable',           serie: 'ALFIL_OB_RPT', ancho: 800,  alto: 1200, cant: 1, vidrio: 'CAM_4_16_4_BE', montaje: 'hueco_limpio' },
+            { desc: 'Fijo lateral',                    serie: 'FIJO_STD',      ancho: 400,  alto: 1200, cant: 1, vidrio: 'CAM_4_16_4_BE', montaje: 'sin_montaje' },
+        ]
+    },
+
+    // 3. Puerta 1 hoja + fijo lateral
+    'puerta_fijo': {
+        titulo: 'Puerta 1h Practicable + Fijo lateral',
+        descripcion: '2 módulos — puerta practicable 1h + fijo de acompañamiento',
+        modulos: [
+            { desc: 'Puerta practicable 1h',           serie: 'ALBA_A45',      ancho: 900,  alto: 2100, cant: 1, vidrio: 'CAM_4_16_4_BE', montaje: 'hueco_limpio' },
+            { desc: 'Fijo lateral',                    serie: 'FIJO_STD',      ancho: 500,  alto: 2100, cant: 1, vidrio: 'CAM_4_16_4_BE', montaje: 'sin_montaje' },
+        ]
+    },
+
+    // 4. Puerta 2 hojas + 2 fijos laterales
+    'puerta_2h_2fijos': {
+        titulo: 'Puerta 2h + 2 Fijos laterales',
+        descripcion: '3 módulos — fijo izquierdo + puerta 2h + fijo derecho',
+        modulos: [
+            { desc: 'Fijo lateral izquierdo',          serie: 'FIJO_STD',      ancho: 400,  alto: 2100, cant: 1, vidrio: 'CAM_4_16_4_BE', montaje: 'hueco_limpio' },
+            { desc: 'Puerta practicable 2 hojas',      serie: 'ALBA_A45_2H',   ancho: 1200, alto: 2100, cant: 1, vidrio: 'CAM_4_16_4_BE', montaje: 'sin_montaje' },
+            { desc: 'Fijo lateral derecho',            serie: 'FIJO_STD',      ancho: 400,  alto: 2100, cant: 1, vidrio: 'CAM_4_16_4_BE', montaje: 'sin_montaje' },
+        ]
+    },
+
+    // 5. Ventanal fijo + practicable + fijo
+    'ventanal_fijo_pract_fijo': {
+        titulo: 'Ventanal Fijo + Practicable + Fijo',
+        descripcion: '3 módulos — composición clásica con hojas centrales practicables',
+        modulos: [
+            { desc: 'Fijo lateral izquierdo',          serie: 'FIJO_STD',      ancho: 600,  alto: 1200, cant: 1, vidrio: 'CAM_4_16_4_ARGON', montaje: 'hueco_limpio' },
+            { desc: 'Practicable central 1h',          serie: 'ALFIL_45_RPT',  ancho: 800,  alto: 1200, cant: 1, vidrio: 'CAM_4_16_4_ARGON', montaje: 'sin_montaje' },
+            { desc: 'Fijo lateral derecho',            serie: 'FIJO_STD',      ancho: 600,  alto: 1200, cant: 1, vidrio: 'CAM_4_16_4_ARGON', montaje: 'sin_montaje' },
+        ]
+    },
+
+    // 6. Puerta con bandera superior
+    'puerta_bandera': {
+        titulo: 'Puerta con Bandera Superior',
+        descripcion: '2 módulos — puerta practicable 1h + fijo superior (bandera/transom)',
+        modulos: [
+            { desc: 'Puerta practicable 1h',           serie: 'ALBA_A45',      ancho: 900,  alto: 1900, cant: 1, vidrio: 'CAM_4_16_4_BE', montaje: 'hueco_limpio' },
+            { desc: 'Fijo superior (bandera)',         serie: 'FIJO_STD',      ancho: 900,  alto: 400,  cant: 1, vidrio: 'CAM_4_16_4_BE', montaje: 'sin_montaje' },
+        ]
+    },
+
+    // 7. Ventana con antepecho (panel + vidrio)
+    'ventana_antepecho': {
+        titulo: 'Ventana con Antepecho',
+        descripcion: '2 módulos — panel opaco inferior + ventana practicable superior',
+        modulos: [
+            { desc: 'Panel fijo antepecho (opaco)',    serie: 'FIJO_STD',      ancho: 1200, alto: 500,  cant: 1, vidrio: 'FLOAT_4',         montaje: 'hueco_limpio' },
+            { desc: 'Ventana practicable 1h (sup.)',   serie: 'ALFIL_45_RPT',  ancho: 1200, alto: 900,  cant: 1, vidrio: 'CAM_4_16_4_BE',   montaje: 'sin_montaje' },
+        ]
+    },
+};
+
+function cargarEjemplo(id) {
+    const ejemplo = EJEMPLOS[id];
+    if (!ejemplo) return;
+
+    // Limpiar posiciones actuales
+    const container = document.getElementById('posicionesContainer');
+    container.innerHTML = '';
+    contadorPos = 0;
+
+    // Mensaje informativo
+    const info = document.createElement('div');
+    info.className = 'alert alert-success no-print';
+    info.style.marginBottom = '0.75rem';
+    info.innerHTML = `<i class="fas fa-check-circle"></i> <div><strong>${ejemplo.titulo}</strong> cargado — ${ejemplo.descripcion}. Ajusta dimensiones, serie y vidrio a tu medida.</div>`;
+    container.appendChild(info);
+    setTimeout(() => { if(info.parentNode) info.parentNode.removeChild(info); }, 5000);
+
+    // Crear posiciones
+    ejemplo.modulos.forEach(mod => {
+        contadorPos++;
+        const div = document.createElement('div');
+        div.className = 'posicion-card';
+        div.id = `pos-${contadorPos}`;
+        div.dataset.num = contadorPos;
+        div.innerHTML = buildPosicionHTML(contadorPos);
+        container.appendChild(div);
+
+        // Asignar valores
+        const n = contadorPos;
+        setTimeout(() => {
+            const elDesc    = document.getElementById(`desc-${n}`);
+            const elSerie   = document.getElementById(`serie-${n}`);
+            const elAncho   = document.getElementById(`ancho-${n}`);
+            const elAlto    = document.getElementById(`alto-${n}`);
+            const elCant    = document.getElementById(`cant-${n}`);
+            const elVidrio  = document.getElementById(`vidrio-${n}`);
+            const elMontaje = document.getElementById(`montaje-${n}`);
+
+            if (elDesc)    elDesc.value    = mod.desc;
+            if (elSerie)   elSerie.value   = mod.serie;
+            if (elAncho)   elAncho.value   = mod.ancho;
+            if (elAlto)    elAlto.value    = mod.alto;
+            if (elCant)    elCant.value    = mod.cant;
+            if (elVidrio)  elVidrio.value  = mod.vidrio;
+            if (elMontaje) elMontaje.value = mod.montaje;
+
+            actualizarDesgloseInstantaneo(n);
+        }, 30);
+    });
+
+    actualizarBadgePosiciones();
+
+    // Scroll suave al formulario
+    container.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 </script>
 </body>
