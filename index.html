@@ -361,7 +361,7 @@
 
 <!-- HEADER -->
 <div class="header">
-    <img src="https://www.genspark.ai/api/files/s/kyOLeDsV" alt="VALAUNI Logo" onerror="this.style.display='none'">
+    <img src="logo_valauni_black.png" alt="VALAUNI Logo" onerror="this.style.display='none'">
     <div>
         <h1><i class="fas fa-window-maximize"></i> VALAUNI - Presupuestos Aluminio</h1>
         <p>Tarifa Aluminios Barcelona · Cálculo €/ml por componente · Optimización de barras FFD</p>
@@ -2019,40 +2019,56 @@ function generarPDF() {
 
     // ── Cargar TODAS las imágenes en paralelo antes de generar ──
     const _imagenes = {
-        logo:             { url: 'images/logo_valauni.png',             b64: null, w: 0, h: 0 },
-        fijo:             { url: 'images/ventana_fijo.png',             b64: null, w: 0, h: 0 },
-        practicable_1h:   { url: 'images/ventana_practicable_1h.png',   b64: null, w: 0, h: 0 },
-        practicable_2h:   { url: 'images/ventana_practicable_2h.png',   b64: null, w: 0, h: 0 },
-        ob_1h:            { url: 'images/ventana_ob_1h.png',            b64: null, w: 0, h: 0 },
-        ob_2h:            { url: 'images/ventana_ob_2h.png',            b64: null, w: 0, h: 0 },
-        corredera_2h:     { url: 'images/ventana_corredera_2h.png',     b64: null, w: 0, h: 0 },
-        puerta_1h:        { url: 'images/puerta_practicable_1h.png',    b64: null, w: 0, h: 0 },
-        puerta_2h:        { url: 'images/puerta_practicable_2h.png',    b64: null, w: 0, h: 0 },
+        logo:             { urls: ['logo_valauni_black.png', 'images/logo_valauni.png'],                         b64: null, w: 0, h: 0 },
+        fijo:             { urls: ['ventana_fijo.png', 'images/ventana_fijo.png'],                               b64: null, w: 0, h: 0 },
+        practicable_1h:   { urls: ['ventana_practicable_1h.png', 'images/ventana_practicable_1h.png'],         b64: null, w: 0, h: 0 },
+        practicable_2h:   { urls: ['ventana_practicable_2h.png', 'images/ventana_practicable_2h.png'],         b64: null, w: 0, h: 0 },
+        ob_1h:            { urls: ['ventana_ob_1h.png', 'images/ventana_ob_1h.png'],                             b64: null, w: 0, h: 0 },
+        ob_2h:            { urls: ['ventana_ob_2h.png', 'images/ventana_ob_2h.png'],                             b64: null, w: 0, h: 0 },
+        corredera_2h:     { urls: ['ventana_corredera_2h.png', 'images/ventana_corredera_2h.png'],             b64: null, w: 0, h: 0 },
+        puerta_1h:        { urls: ['puerta_practicable_1h.png', 'images/puerta_practicable_1h.png'],           b64: null, w: 0, h: 0 },
+        puerta_2h:        { urls: ['puerta_practicable_2h.png', 'images/puerta_practicable_2h.png'],           b64: null, w: 0, h: 0 },
     };
 
     // Compatibilidad: alias para el logo anterior
-    const _logoURL = _imagenes.logo.url;
+    const _logoURL = (_imagenes.logo.urls && _imagenes.logo.urls[0]) || '';
 
     let _pendiente = Object.keys(_imagenes).length;
 
     function _cargaImg(key) {
         const entry = _imagenes[key];
-        const img   = new Image();
-        img.crossOrigin = 'anonymous';
-        img.onload = function() {
-            const c = document.createElement('canvas');
-            c.width  = img.naturalWidth;
-            c.height = img.naturalHeight;
-            c.getContext('2d').drawImage(img, 0, 0);
-            entry.b64 = c.toDataURL('image/png');
-            entry.w   = img.naturalWidth;
-            entry.h   = img.naturalHeight;
-            if (--_pendiente === 0) _buildPDF();
-        };
-        img.onerror = function() {
-            if (--_pendiente === 0) _buildPDF();
-        };
-        img.src = entry.url + '?t=' + Date.now();
+        const rutas = Array.isArray(entry.urls) ? entry.urls : [entry.url];
+        let idxRuta = 0;
+
+        function intentarCarga() {
+            const ruta = rutas[idxRuta];
+            const img  = new Image();
+            img.crossOrigin = 'anonymous';
+
+            img.onload = function() {
+                const c = document.createElement('canvas');
+                c.width  = img.naturalWidth;
+                c.height = img.naturalHeight;
+                c.getContext('2d').drawImage(img, 0, 0);
+                entry.b64 = c.toDataURL('image/png');
+                entry.w   = img.naturalWidth;
+                entry.h   = img.naturalHeight;
+                if (--_pendiente === 0) _buildPDF();
+            };
+
+            img.onerror = function() {
+                idxRuta += 1;
+                if (idxRuta < rutas.length) {
+                    intentarCarga();
+                    return;
+                }
+                if (--_pendiente === 0) _buildPDF();
+            };
+
+            img.src = ruta + '?t=' + Date.now();
+        }
+
+        intentarCarga();
     }
 
     // Función para obtener imagen técnica por tipo/hojas de serie
